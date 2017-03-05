@@ -1,6 +1,7 @@
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.BufferedReader;
 import java.io.PrintStream;
 
 import static org.junit.Assert.*;
@@ -12,49 +13,46 @@ import static org.mockito.Mockito.*;
 public class GameTest {
 
     private PrintStream out;
+    private BufferedReader in;
     private Game game;
+    private Board board;
+    private Player player1;
+    private Player player2;
 
     @Before
     public void setUp() {
         out = mock(PrintStream.class);
-        game = new Game(out);
+        in = mock(BufferedReader.class);
+        board = mock(Board.class);
+        player1 = mock(Player.class);
+        player2 = mock(Player.class);
+        game = new Game(out, in, board, player1, player2);
     }
 
     @Test
-    public void shouldDrawBoardOnStart() {
+    public void shouldTellBoardToPrintItselfOnStart(){
         game.start();
-
-        verify(out).println("1|2|3\n" +
-                "-----\n" +
-                "4|5|6\n" +
-                "-----\n" +
-                "7|8|9");
+        verify(board).drawBoard();
     }
 
     @Test
-    public void shouldPromptPlayerToEnterANumber() {
+    public void shouldPromptPlayersToEnterANumber(){
         game.start();
 
-        verify(out).println(contains("enter a number"));
+        verify(out, times(2)).println(contains("enter a number"));
     }
 
     @Test
-    public void shouldRedrawTheBoardWithPlayerSymbolXAtTopLeftCorner() {
+    public void shouldTellPlayer1ToMakeAMove() {
         game.start();
-        verify(out).println("X|2|3\n" +
-                "-----\n" +
-                "4|5|6\n" +
-                "-----\n" +
-                "7|8|9");
+        verify(player1).makeMove();
     }
 
     @Test
-    public void shouldRedrawTheBoardWithPlayerSymbolXAtTopRightCorner() {
+    public void shouldTellPlayer2ToMakeAMove(){
         game.start();
-        verify(out).println("1|2|X\n" +
-                "-----\n" +
-                "4|5|6\n" +
-                "-----\n" +
-                "7|8|9");
+
+        verify(player2).makeMove();
     }
+
 }

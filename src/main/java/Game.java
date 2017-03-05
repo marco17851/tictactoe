@@ -1,3 +1,5 @@
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.PrintStream;
 
 /**
@@ -5,27 +7,29 @@ import java.io.PrintStream;
  */
 public class Game {
     private PrintStream out;
+    private BufferedReader in;
+    private Player player1;
+    private Player player2;
+    private Board board;
 
-    public Game(PrintStream out) {
+    public Game(PrintStream out, BufferedReader in, Board board, Player player1, Player player2) {
         this.out = out;
+        this.in = in;
+        this.board = board;
+        this.player1 = player1;
+        this.player2 = player2;
     }
 
     public void start() {
-        out.println("1|2|3\n" +
-                "-----\n" +
-                "4|5|6\n" +
-                "-----\n" +
-                "7|8|9");
+        board.drawBoard();
+
         out.println("Please enter a number between 1 and 9.");
-        out.println("X|2|3\n" +
-                "-----\n" +
-                "4|5|6\n" +
-                "-----\n" +
-                "7|8|9");
-        out.println("1|2|X\n" +
-                "-----\n" +
-                "4|5|6\n" +
-                "-----\n" +
-                "7|8|9");
+        player1.makeMove();
+
+        out.println("Please enter a number between 1 and 9.");
+        player2.makeMove();
     }
+
+
+
 }
