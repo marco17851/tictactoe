@@ -30,6 +30,4 @@ public class Game {
         player2.makeMove();
     }
 
-
-
 }

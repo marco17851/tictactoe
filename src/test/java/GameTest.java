@@ -2,6 +2,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.PrintStream;
 
 import static org.junit.Assert.*;
@@ -30,7 +31,8 @@ public class GameTest {
     }
 
     @Test
-    public void shouldTellBoardToPrintItselfOnStart(){
+    public void shouldTellBoardToPrintItselfOnStart() throws IOException {
+        when(in.readLine()).thenReturn("1");
         game.start();
         verify(board).drawBoard();
     }
