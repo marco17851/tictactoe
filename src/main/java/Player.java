@@ -1,5 +1,6 @@
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.PrintStream;
 
 /**
  * Created by MarcoBarragan on 3/5/17.
@@ -7,18 +8,26 @@ import java.io.IOException;
 public class Player {
 
     private BufferedReader in;
+    private PrintStream out;
     private String symbol;
     private Board board;
 
-    public Player(BufferedReader in, String symbol, Board board) {
+    public Player(BufferedReader in, PrintStream out, String symbol, Board board) {
         this.in = in;
+        this.out = out;
         this.symbol = symbol;
         this.board = board;
     }
 
     public void makeMove(){
+        out.println("Please enter a number between 1 and 9.");
         int nextMove = getNextMove();
-        board.placeMark(symbol, nextMove);
+
+        if (board.isLocationTaken(nextMove)){
+            out.println("Location already taken");
+        } else {
+            board.placeMark(symbol, nextMove);
+        }
     }
 
     private int getNextMove() {

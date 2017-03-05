@@ -23,12 +23,15 @@ public class Board {
         out.println(printedBoard);
     }
 
-    public void placeMark(String symbol, int location) {
-        if (cells[location-1] == "X" || cells[location-1] == "X"){
-            out.println("Location already taken. Please try again.");
-        } else {
-            cells[location - 1] = symbol;
-            drawBoard();
+    public boolean isLocationTaken(int location){
+        if (cells[location-1].equals("X") || cells[location-1].equals("X")){
+            return true;
         }
+        return false;
+    }
+
+    public void placeMark(String symbol, int location) {
+        cells[location - 1] = symbol;
+        drawBoard();
     }
 }

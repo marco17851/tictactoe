@@ -7,14 +7,12 @@ import java.io.PrintStream;
  */
 public class Game {
     private PrintStream out;
-    private BufferedReader in;
     private Player player1;
     private Player player2;
     private Board board;
 
-    public Game(PrintStream out, BufferedReader in, Board board, Player player1, Player player2) {
+    public Game(PrintStream out, Board board, Player player1, Player player2) {
         this.out = out;
-        this.in = in;
         this.board = board;
         this.player1 = player1;
         this.player2 = player2;
@@ -23,10 +21,7 @@ public class Game {
     public void start() {
         board.drawBoard();
 
-        out.println("Please enter a number between 1 and 9.");
         player1.makeMove();
-
-        out.println("Please enter a number between 1 and 9.");
         player2.makeMove();
     }
 

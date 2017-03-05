@@ -3,6 +3,7 @@ import org.junit.Test;
 
 import java.io.PrintStream;
 
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
@@ -53,12 +54,15 @@ public class BoardTest {
     }
 
     @Test
-    public void shouldAnnounceThatLocationIsAlreadyTaken() {
-        cells = new String[]{"1", "X", "3", "4", "5", "6", "7", "8", "9"};
-        board = new Board(out, cells);
-        board.placeMark("X", 2);
+    public void shouldCheckThatLocationIsAlreadyMarked() {
+        cells[1] = "X";
 
-        verify(out).println(contains("Location already taken"));
+        assertThat(board.isLocationTaken(2), is(true));
+    }
+
+    @Test
+    public void shouldCheckThatLocationIsNotYetMarked() {
+        assertThat(board.isLocationTaken(2), is(false));
     }
 
 }
