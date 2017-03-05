@@ -1,6 +1,9 @@
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.PrintStream;
 
 import static org.junit.Assert.*;
@@ -12,49 +15,39 @@ import static org.mockito.Mockito.*;
 public class GameTest {
 
     private PrintStream out;
+    private BufferedReader in;
     private Game game;
+    private Board board;
 
     @Before
     public void setUp() {
         out = mock(PrintStream.class);
-        game = new Game(out);
+        in = mock(BufferedReader.class);
+        board = mock(Board.class);
+        game = new Game(out, in, board);
     }
 
     @Test
-    public void shouldDrawBoardOnStart() {
+    public void shouldTellBoardToPrintItselfOnStart() throws IOException {
+        when(in.readLine()).thenReturn("1");
         game.start();
-
-        verify(out).println("1|2|3\n" +
-                "-----\n" +
-                "4|5|6\n" +
-                "-----\n" +
-                "7|8|9");
+        verify(board).drawBoard();
     }
 
     @Test
-    public void shouldPromptPlayerToEnterANumber() {
+    public void shouldPromptPlayerToEnterANumber() throws IOException {
+        when(in.readLine()).thenReturn("1");
         game.start();
 
         verify(out).println(contains("enter a number"));
     }
 
     @Test
-    public void shouldRedrawTheBoardWithPlayerSymbolXAtTopLeftCorner() {
+    public void shouldTellBoardToMarkLocationOnPlayersChosenLocationTopLeftCorner() throws IOException {
+        when(in.readLine()).thenReturn("1");
         game.start();
-        verify(out).println("X|2|3\n" +
-                "-----\n" +
-                "4|5|6\n" +
-                "-----\n" +
-                "7|8|9");
+
+        verify(board).placeMark("X", 1);
     }
 
-    @Test
-    public void shouldRedrawTheBoardWithPlayerSymbolXAtTopRightCorner() {
-        game.start();
-        verify(out).println("1|2|X\n" +
-                "-----\n" +
-                "4|5|6\n" +
-                "-----\n" +
-                "7|8|9");
-    }
 }
