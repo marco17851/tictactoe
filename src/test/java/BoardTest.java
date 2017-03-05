@@ -4,8 +4,7 @@ import org.junit.Test;
 import java.io.PrintStream;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 /**
  * Created by MarcoBarragan on 3/5/17.
@@ -51,6 +50,15 @@ public class BoardTest {
                 "4|5|6\n" +
                 "-----\n" +
                 "7|8|9");
+    }
+
+    @Test
+    public void shouldAnnounceThatLocationIsAlreadyTaken() {
+        cells = new String[]{"1", "X", "3", "4", "5", "6", "7", "8", "9"};
+        board = new Board(out, cells);
+        board.placeMark("X", 2);
+
+        verify(out).println(contains("Location already taken"));
     }
 
 }

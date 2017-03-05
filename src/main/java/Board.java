@@ -24,7 +24,11 @@ public class Board {
     }
 
     public void placeMark(String symbol, int location) {
-        cells[location-1] = symbol;
-        drawBoard();
+        if (cells[location-1] == "X" || cells[location-1] == "X"){
+            out.println("Location already taken. Please try again.");
+        } else {
+            cells[location - 1] = symbol;
+            drawBoard();
+        }
     }
 }
