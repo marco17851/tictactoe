@@ -65,4 +65,26 @@ public class BoardTest {
         assertThat(board.isLocationTaken(2), is(false));
     }
 
+    @Test
+    public void shouldVerifyThatBoardIsFilled() {
+        board.placeMark("X", 1);
+        board.placeMark("X", 2);
+        board.placeMark("X", 3);
+        board.placeMark("X", 4);
+        board.placeMark("X", 5);
+        board.placeMark("X", 6);
+        board.placeMark("X", 7);
+        board.placeMark("X", 8);
+        board.placeMark("X", 9);
+
+        assertThat(board.isFilled(), is(true));
+    }
+
+    @Test
+    public void shouldVerifyThatBoardIsNotFilled() {
+        board.placeMark("X", 1);
+
+        assertThat(board.isFilled(), is(false));
+    }
+
 }

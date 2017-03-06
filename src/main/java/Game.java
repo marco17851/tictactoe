@@ -1,5 +1,3 @@
-import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.PrintStream;
 
 /**
@@ -10,6 +8,7 @@ public class Game {
     private Player player1;
     private Player player2;
     private Board board;
+    private int curTurn;
 
     public Game(PrintStream out, Board board, Player player1, Player player2) {
         this.out = out;
@@ -20,9 +19,25 @@ public class Game {
 
     public void start() {
         board.drawBoard();
+        curTurn = 0;
 
-        player1.makeMove();
-        player2.makeMove();
+        while (!board.isFilled()){
+            curTurn += 1;
+            takeTurn(getNextPlayer());
+        }
+
+        out.println("Game is a draw");
+    }
+
+    private Player getNextPlayer() {
+        if (curTurn % 2 == 0){
+            return player2;
+        }
+        return player1;
+    }
+
+    private void takeTurn(Player player){
+        player.makeMove();
     }
 
 }

@@ -7,10 +7,13 @@ public class Board {
 
     private PrintStream out;
     private String [] cells;
+    private boolean [] marked_cells;
+    private int num_cells_left;
 
     public Board(PrintStream out, String[] cells) {
         this.out = out;
         this.cells = cells;
+        num_cells_left = cells.length;
     }
 
     public void drawBoard() {
@@ -24,7 +27,7 @@ public class Board {
     }
 
     public boolean isLocationTaken(int location){
-        if (cells[location-1].equals("X") || cells[location-1].equals("X")){
+        if (cells[location-1].equals("X") || cells[location-1].equals("O")){
             return true;
         }
         return false;
@@ -32,6 +35,14 @@ public class Board {
 
     public void placeMark(String symbol, int location) {
         cells[location - 1] = symbol;
+        num_cells_left -= 1;
         drawBoard();
+    }
+
+    public boolean isFilled(){
+        if (num_cells_left > 0){
+            return false;
+        }
+        return true;
     }
 }

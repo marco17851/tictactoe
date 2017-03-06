@@ -27,6 +27,7 @@ public class GameTest {
         player1 = mock(Player.class);
         player2 = mock(Player.class);
         game = new Game(out, board, player1, player2);
+        when(board.isFilled()).thenReturn(true);
     }
 
     @Test
@@ -37,15 +38,30 @@ public class GameTest {
 
     @Test
     public void shouldTellPlayer1ToMakeAMove() {
+        when(board.isFilled()).thenReturn(false, true);
         game.start();
         verify(player1).makeMove();
     }
 
     @Test
     public void shouldTellPlayer2ToMakeAMove(){
+        when(board.isFilled()).thenReturn(false, false, true);
+        game.start();
+        verify(player2).makeMove();
+    }
+
+    @Test
+    public void shouldAskBoardIfItIsFull() {
         game.start();
 
-        verify(player2).makeMove();
+        verify(board).isFilled();
+    }
+
+    @Test
+    public void shouldAnnounceThatGameIsADrawWhenDone() {
+        when(board.isFilled()).thenReturn(true);
+        game.start();
+        verify(out).println(contains("draw"));
     }
 
 }
