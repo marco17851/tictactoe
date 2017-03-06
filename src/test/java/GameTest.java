@@ -28,6 +28,7 @@ public class GameTest {
         player2 = mock(Player.class);
         game = new Game(out, board, player1, player2);
         when(board.isFilled()).thenReturn(true);
+        when(board.hasWinningRow()).thenReturn(false);
     }
 
     @Test
@@ -59,9 +60,16 @@ public class GameTest {
 
     @Test
     public void shouldAnnounceThatGameIsADrawWhenDone() {
-        when(board.isFilled()).thenReturn(true);
         game.start();
         verify(out).println(contains("draw"));
+    }
+
+    @Test
+    public void shouldAnnounceThatAPlayerHasWonTheGame() {
+        when(board.isFilled()).thenReturn(false);
+        when(board.hasWinningRow()).thenReturn(true);
+        game.start();
+        verify(out).println(contains("Wins!"));
     }
 
 }

@@ -9,6 +9,8 @@ public class Game {
     private Player player2;
     private Board board;
     private int curTurn;
+    private boolean gameWon;
+    private String winningPlayer;
 
     public Game(PrintStream out, Board board, Player player1, Player player2) {
         this.out = out;
@@ -20,13 +22,18 @@ public class Game {
     public void start() {
         board.drawBoard();
         curTurn = 0;
+        gameWon = false;
 
-        while (!board.isFilled()){
+        while (!board.isFilled() && !gameWon){
             curTurn += 1;
             takeTurn(getNextPlayer());
         }
 
-        out.println("Game is a draw");
+        if (gameWon){
+            out.println("Player " + winningPlayer + " Wins!");
+        } else {
+            out.println("Game is a draw");
+        }
     }
 
     private Player getNextPlayer() {
@@ -38,6 +45,10 @@ public class Game {
 
     private void takeTurn(Player player){
         player.makeMove();
+        if (board.hasWinningRow()){
+            gameWon = true;
+            winningPlayer = player.getSymbol();
+        }
     }
 
 }

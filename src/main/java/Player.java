@@ -40,4 +40,8 @@ public class Player {
         }
         return nextMove;
     }
+
+    public String getSymbol(){
+        return symbol;
+    }
 }

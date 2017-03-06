@@ -7,7 +7,6 @@ public class Board {
 
     private PrintStream out;
     private String [] cells;
-    private boolean [] marked_cells;
     private int num_cells_left;
 
     public Board(PrintStream out, String[] cells) {
@@ -44,5 +43,19 @@ public class Board {
             return false;
         }
         return true;
+    }
+
+    public boolean hasWinningRow() {
+        boolean hasWon = false;
+
+        if (cells[0] == cells[1] && cells[0] == cells[2]){
+            hasWon = true;
+        } else if (cells[3] == cells[4] && cells[3] == cells[5]){
+            hasWon = true;
+        } else if (cells[6] == cells[7] && cells[6] == cells[8]){
+            hasWon = true;
+        }
+
+        return hasWon;
     }
 }

@@ -87,4 +87,18 @@ public class BoardTest {
         assertThat(board.isFilled(), is(false));
     }
 
+    @Test
+    public void shouldVerifyThatBoardHasAWinningRow() {
+        cells[3] = "X";
+        cells[4] = "X";
+        cells[5] = "X";
+
+        assertThat(board.hasWinningRow(), is(true));
+    }
+
+    @Test
+    public void shouldVerifyThatBoardDoesNotHaveAWinningRow() {
+        assertThat(board.hasWinningRow(), is(false));
+    }
+
 }
