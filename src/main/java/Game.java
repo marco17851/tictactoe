@@ -45,7 +45,7 @@ public class Game {
 
     private void takeTurn(Player player){
         player.makeMove();
-        if (board.hasWinningRow()){
+        if (board.hasWinningRow() || board.hasWinningColumn()){
             gameWon = true;
             winningPlayer = player.getSymbol();
         }

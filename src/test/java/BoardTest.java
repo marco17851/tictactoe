@@ -101,4 +101,18 @@ public class BoardTest {
         assertThat(board.hasWinningRow(), is(false));
     }
 
+    @Test
+    public void shouldVerifyThatBoardHasAWinningColumn() {
+        cells[1] = "X";
+        cells[4] = "X";
+        cells[7] = "X";
+
+        assertThat(board.hasWinningColumn(), is(true));
+    }
+
+    @Test
+    public void shouldVerifyThatBoardDoesNotHaveAWinningColumn() {
+        assertThat(board.hasWinningColumn(), is(false));
+    }
+
 }

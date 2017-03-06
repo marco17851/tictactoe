@@ -58,4 +58,18 @@ public class Board {
 
         return hasWon;
     }
+
+    public boolean hasWinningColumn() {
+        boolean hasWon = false;
+
+        if (cells[0] == cells[3] && cells[0] == cells[6]){
+            hasWon = true;
+        } else if (cells[1] == cells[4] && cells[1] == cells[7]){
+            hasWon = true;
+        } else if (cells[2] == cells[5] && cells[2] == cells[8]){
+            hasWon = true;
+        }
+
+        return hasWon;
+    }
 }
