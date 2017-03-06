@@ -72,4 +72,16 @@ public class Board {
 
         return hasWon;
     }
+
+    public boolean hasWinningDiagonal() {
+        boolean hasWon = false;
+
+        if (cells[0] == cells[4] && cells[0] == cells[8]){
+            hasWon = true;
+        } else if (cells[2] == cells[4] && cells[2] == cells[6]){
+            hasWon = true;
+        }
+
+        return hasWon;
+    }
 }

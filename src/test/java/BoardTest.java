@@ -115,4 +115,27 @@ public class BoardTest {
         assertThat(board.hasWinningColumn(), is(false));
     }
 
+    @Test
+    public void shouldVerifyThatBoardHasAWinningDiagonalFromTopLeftToBottomRight() {
+        cells[0] = "X";
+        cells[4] = "X";
+        cells[8] = "X";
+
+        assertThat(board.hasWinningDiagonal(), is(true));
+    }
+
+    @Test
+    public void shouldVerifyThatBoardHasAWinningDiagonalFromBottomLeftToTopRight() {
+        cells[2] = "X";
+        cells[4] = "X";
+        cells[6] = "X";
+
+        assertThat(board.hasWinningDiagonal(), is(true));
+    }
+
+    @Test
+    public void shouldVerifyThatBoardDoesNotHaveAWinningDiagonal() {
+        assertThat(board.hasWinningDiagonal(), is(false));
+    }
+
 }
