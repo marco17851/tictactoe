@@ -34,8 +34,17 @@ public class PlayerTest {
     }
 
     @Test
-    public void shouldDisplayThatLocationAlreadyTaken() {
-        when(board.isLocationTaken(anyInt())).thenReturn(true);
+    public void shouldRepeatUserPromptsUntilValidMoveIsGiven() throws IOException {
+        when(in.readLine()).thenReturn("3", "3", "3", "6");
+        when(board.isLocationTaken(anyInt())).thenReturn(true, true, true, false);
+        player.makeMove();
+
+        verify(board).placeMark(anyString(), eq(6));
+    }
+
+    @Test
+    public void shouldDisplayThatLocationIsAlreadyTaken() {
+        when(board.isLocationTaken(anyInt())).thenReturn(true, false);
         player.makeMove();
 
         verify(out).println(contains("taken"));

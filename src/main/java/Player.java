@@ -20,14 +20,15 @@ public class Player {
     }
 
     public void makeMove(){
-        out.println("Please enter a number between 1 and 9.");
+        out.println("Player " + symbol + ": please enter a number between 1 and 9.");
         int nextMove = getNextMove();
 
-        if (board.isLocationTaken(nextMove)){
+        while(board.isLocationTaken(nextMove)){
             out.println("Location already taken");
-        } else {
-            board.placeMark(symbol, nextMove);
+            nextMove = getNextMove();
         }
+
+        board.placeMark(symbol, nextMove);
     }
 
     private int getNextMove() {
